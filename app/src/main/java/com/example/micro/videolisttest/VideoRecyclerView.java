@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,13 +15,12 @@ public class VideoRecyclerView extends RecyclerView.Adapter<VideoRecyclerView.My
     private final static String TAG = VideoRecyclerView.class.getSimpleName();
 
     private Context mContext;
-    private ArrayList<Integer> mList = new ArrayList<>();
+    private ArrayList<VideoListData> mList;
 
-    public VideoRecyclerView(Context context) {
+    public VideoRecyclerView(Context context, ArrayList<VideoListData> list) {
         mContext = context;
-        for (int i=0;i<5;i++) {
-            mList.add(i);
-        }
+        mList = list;
+        Log.d(TAG, "TTT list is null = "+(mList==null));
     }
 
     @NonNull
@@ -36,13 +34,16 @@ public class VideoRecyclerView extends RecyclerView.Adapter<VideoRecyclerView.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.mText.setText(String.valueOf(position));
+        holder.mText.setText(String.valueOf(position+1));
     }
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "TTT item size = "+mList.size());
-        return mList.size();
+        if (mList != null) {
+            Log.d(TAG, "TTT item size = " + mList.size());
+            return mList.size();
+        }
+        return 0;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

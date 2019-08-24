@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class VideoListFragment extends Fragment {
 
     private Context mContext;
     private RecyclerView mRecyclerView;
+    private ArrayList<VideoListData> mList;
 
     @Override
     public void onAttach(Context context) {
@@ -26,8 +29,9 @@ public class VideoListFragment extends Fragment {
 //        TextView textView = root.findViewById(R.id.text);
 //        textView.setText("Fragment");
 
+        mList = getArguments().getParcelableArrayList(MainActivity.KEY_VIDEO_LIST);
         mRecyclerView = root.findViewById(R.id.list);
-        VideoRecyclerView mVideoRecyclerView = new VideoRecyclerView(mContext);
+        VideoRecyclerView mVideoRecyclerView = new VideoRecyclerView(mContext, mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mVideoRecyclerView);
         return root;
