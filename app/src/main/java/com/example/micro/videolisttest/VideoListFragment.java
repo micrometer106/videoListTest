@@ -8,15 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class VideoListFragment extends Fragment {
 
     private Context mContext;
-    private RecyclerView mRecyclerView;
+    private VideoRecyclerView mRecyclerView;
     private ArrayList<VideoListData> mList;
+    private ArrayList<MediaObject> mMediaList;
 
     @Override
     public void onAttach(Context context) {
@@ -31,12 +36,25 @@ public class VideoListFragment extends Fragment {
 
         mList = getArguments().getParcelableArrayList(MainActivity.KEY_VIDEO_LIST);
         mRecyclerView = root.findViewById(R.id.list);
-        VideoRecyclerView mVideoRecyclerView = new VideoRecyclerView(mContext, mList);
+        //TODO: use Resources temporarily
+//        VideoRecyclerViewHolder mVideoRecyclerViewHolder = new VideoRecyclerViewHolder(mContext, mList);
+        mMediaList = new ArrayList<MediaObject>(Arrays.asList(Resources.MEDIA_OBJECTS));
+        mRecyclerView.setMediaObjects(mMediaList);
+        VideoRecyclerViewHolder mVideoRecyclerViewHolder = new VideoRecyclerViewHolder(mContext, mMediaList, initGlide());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setAdapter(mVideoRecyclerView);
+        mRecyclerView.setAdapter(mVideoRecyclerViewHolder);
         return root;
     }
 
+    //TODO: release player
 
+    private RequestManager initGlide(){
+        RequestOptions options = new RequestOptions();
+//                .placeholder(R.drawable.white_background)
+//                .error(R.drawable.white_background);
+
+        return Glide.with(this)
+                .setDefaultRequestOptions(options);
+    }
 
 }

@@ -14,9 +14,10 @@
         <!--app:layout_constraintLeft_toLeftOf="parent"-->
         <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
-    <android.support.v7.widget.RecyclerView
+    <com.example.micro.videolisttest.VideoRecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
 
 </android.support.constraint.ConstraintLayout>
